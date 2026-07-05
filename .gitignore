@@ -1,3 +1,5 @@
+native/
+
 # Logs
 logs
 *.log
