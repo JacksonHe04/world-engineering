@@ -16,7 +16,6 @@ scripts/
 *_local/
 _satellites/
 .agents/
-!.agents/docs/
 .claude/
 .trae/
 .cursor/
