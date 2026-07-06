@@ -14,6 +14,7 @@ native/
 /local
 scripts/
 *_local/
+_satellites/
 .agents/
 !.agents/docs/
 .claude/
