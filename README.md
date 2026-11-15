@@ -278,13 +278,17 @@ cp .env.example .env.local
 | `ANALYTICS_IP_SALT` | 访问统计 IP 哈希盐，建议至少 32 bytes hex | 仅服务端 |
 | `INON_SSO_BACKEND_URL` | 中央 SSO Worker 地址 | 仅服务端 |
 | `INON_SSO_PROXY_SECRET` | Web 应用到 SSO Worker 的反向代理密钥 | 仅服务端 |
-| `INON_SSO_PUBLIC_ORIGIN` | 当前应用公开 origin；本地开发设为 `http://localhost:3000` | 仅服务端 |
+| `INON_SSO_PUBLIC_ORIGIN` | 当前产品应用的公开 origin；线上为 `https://world.inon.space`，本地设为 `http://localhost:3000` | 仅服务端 |
+| `INON_SSO_CANONICAL_ORIGIN` | 中央身份平台 origin；默认 `https://sso.inon.space` | 仅服务端 |
+| `INON_SSO_ISSUER` | 可选，OAuth issuer 覆盖；默认 `https://sso.inon.space/api/sso/auth` | 仅服务端 |
 | `NEXT_PUBLIC_INON_TURNSTILE_SITE_KEY` | 登录界面的 Cloudflare Turnstile site key | 浏览器 |
 | `INON_SSO_CLIENT_ID` | `inon` 项目的 OAuth client id | 仅服务端 |
 | `INON_SSO_CLIENT_SECRET` | `inon` 项目的 OAuth client secret | 仅服务端 |
 | `INON_SSO_SESSION_SECRET` | 项目会话签名密钥 | 仅服务端 |
 
 不要提交 `.env.local`、`.env.development.local` 或任何真实密钥。开发环境使用 HTTP 时，`INON_SSO_PUBLIC_ORIGIN` 必须明确使用 `http://localhost:3000`，使 session cookie 不带 Secure 标志；对应回调地址也必须已在中央 SSO client 中注册。
+
+线上域名分工：`inon.space` 是个人站，`sso.inon.space` 是中央身份平台（登录 UI + OAuth API），`world.inon.space` 是 iNon 产品应用。`INON_SSO_PUBLIC_ORIGIN` 指产品应用自己的 origin，不要填成 SSO 的 origin。
 
 ### 3. 准备数据库
 
