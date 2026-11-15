@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import type { ReadmeData } from '@/types';
 import { calculateAge, getAuthorNickname } from '@/lib/utils';
@@ -66,7 +66,12 @@ export default function TopNav({ data, className, blocks, publicPath = '/' }: To
     : [];
   const { theme, setTheme } = useTheme();
   const router = useRouter();
+  const pathname = usePathname();
   const experience = useUniversalTopNav((state) => state.experience);
+  const isConsoleSurface = pathname === '/i'
+    || pathname?.startsWith('/i/')
+    || pathname?.startsWith('/admin')
+    || false;
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -131,6 +136,11 @@ export default function TopNav({ data, className, blocks, publicPath = '/' }: To
   }, [setAIState]);
 
   useEffect(() => {
+    if (!isConsoleSurface) {
+      setSession(null);
+      return;
+    }
+
     const controller = new AbortController();
     fetch('/api/auth/inon/session', {
       cache: 'no-store',
@@ -146,7 +156,7 @@ export default function TopNav({ data, className, blocks, publicPath = '/' }: To
       .catch(() => undefined);
 
     return () => controller.abort();
-  }, []);
+  }, [isConsoleSurface]);
 
   const markNotificationsRead = () => {
     if (typeof window === 'undefined') return;
@@ -184,14 +194,17 @@ export default function TopNav({ data, className, blocks, publicPath = '/' }: To
               isMounted={isMounted}
             />
 
-            <WorldModeSwitch
-              mode={experience?.mode ?? 'archive'}
-              onChange={handleExperienceModeChange}
-            />
+            {isConsoleSurface ? (
+              <WorldModeSwitch
+                mode={experience?.mode ?? 'archive'}
+                onChange={handleExperienceModeChange}
+              />
+            ) : null}
 
             <NavRight
               data={data}
               session={session}
+              showPersonalActions={isConsoleSurface}
               shouldShowBadge={shouldShowBadge}
               theme={theme}
               setTheme={setTheme}

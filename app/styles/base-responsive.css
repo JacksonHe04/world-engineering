@@ -12,10 +12,6 @@
     gap: 6px;
   }
 
-  .archive-nav-actions > :first-child {
-    display: none;
-  }
-
   .archive-workspace-header {
     min-height: 94px;
     padding: 18px;

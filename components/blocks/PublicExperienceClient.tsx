@@ -61,7 +61,7 @@ export default function PublicExperienceClient({
   archive,
   data,
 }: PublicExperienceClientProps) {
-  const [mode, setMode] = useState<ArchiveWorldMode>('archive');
+  const [mode, setMode] = useState<ArchiveWorldMode>('world');
   const [worldRequested, setWorldRequested] = useState(false);
   const [dialoguePersona, setDialoguePersona] = useState<'owner' | 'companion'>('owner');
   const [dialogueContext, setDialogueContext] = useState(INITIAL_DIALOGUE_CONTEXT);
@@ -75,9 +75,11 @@ export default function PublicExperienceClient({
 
   useEffect(() => {
     const requestedMode = new URLSearchParams(window.location.search).get('mode');
-    if (requestedMode === 'world' || requestedMode === 'archive' || requestedMode === 'dialogue') {
+    if (requestedMode === 'archive' || requestedMode === 'dialogue') {
       changeMode(requestedMode);
+      return;
     }
+    changeMode('world');
   }, [changeMode]);
 
   useEffect(() => {

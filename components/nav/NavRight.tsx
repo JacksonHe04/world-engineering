@@ -13,6 +13,7 @@ import CurrentTime from './CurrentTime';
 interface NavRightProps {
   data: ReadmeData;
   session: TopNavSession | null;
+  showPersonalActions: boolean;
   shouldShowBadge: boolean;
   theme: string | undefined;
   setTheme: (theme: string) => void;
@@ -33,6 +34,7 @@ function subscribeToLocationChange(onStoreChange: () => void) {
 export function NavRight({
   data,
   session,
+  showPersonalActions,
   shouldShowBadge,
   theme,
   setTheme,
@@ -71,30 +73,34 @@ export function NavRight({
 
   return (
     <div className={`archive-nav-actions flex items-center gap-1 sm:gap-2 lg:gap-4 ${experience ? 'is-experience' : ''}`}>
-      <SocialLinks platformAccounts={data.contact.platform_accounts} />
+      {showPersonalActions ? (
+        <SocialLinks platformAccounts={data.contact.platform_accounts} />
+      ) : null}
 
       {experience?.mode === 'world' && worldControls ? <WorldTopNavControls controls={worldControls} /> : null}
 
-      <button
-        onClick={() => {
-          setShowNotifications((prev: boolean) => {
-            const next = !prev;
-            if (next) {
-              markNotificationsRead();
-            }
-            return next;
-          });
-        }}
-        className="archive-nav-global-control relative w-10 h-10 flex items-center justify-center rounded-lg border border-white/40 bg-white/30 text-gray-700 transition hover:border-purple-200 hover:text-purple-600 cursor-pointer"
-        aria-label="查看通知"
-      >
-        <Bell className="h-4 w-4" />
-        {shouldShowBadge && (
-          <span className="absolute -top-1 -right-1 min-w-[1.2rem] h-4 px-1 bg-gray-100 text-gray-700 rounded-full text-[10px] flex items-center justify-center font-semibold">
-            {data.notifications.length}
-          </span>
-        )}
-      </button>
+      {showPersonalActions ? (
+        <button
+          onClick={() => {
+            setShowNotifications((prev: boolean) => {
+              const next = !prev;
+              if (next) {
+                markNotificationsRead();
+              }
+              return next;
+            });
+          }}
+          className="archive-nav-global-control relative w-10 h-10 flex items-center justify-center rounded-lg border border-white/40 bg-white/30 text-gray-700 transition hover:border-purple-200 hover:text-purple-600 cursor-pointer"
+          aria-label="查看通知"
+        >
+          <Bell className="h-4 w-4" />
+          {shouldShowBadge && (
+            <span className="absolute -top-1 -right-1 min-w-[1.2rem] h-4 px-1 bg-gray-100 text-gray-700 rounded-full text-[10px] flex items-center justify-center font-semibold">
+              {data.notifications.length}
+            </span>
+          )}
+        </button>
+      ) : null}
 
       {/* Theme Switcher Button */}
       <button
@@ -108,16 +114,18 @@ export function NavRight({
 
       <CurrentTime />
 
-      <UserInfoMenu
-        session={session}
-        isConsolePage={activeIsConsolePage}
-        isPending={isPending}
-        onLogin={() => setShowAuthModal(true)}
-        onPrimaryAction={() => navigateTo(primaryPath)}
-        onPrimaryPrefetch={() => {
-          if (session) router.prefetch(primaryPath);
-        }}
-      />
+      {showPersonalActions ? (
+        <UserInfoMenu
+          session={session}
+          isConsolePage={activeIsConsolePage}
+          isPending={isPending}
+          onLogin={() => setShowAuthModal(true)}
+          onPrimaryAction={() => navigateTo(primaryPath)}
+          onPrimaryPrefetch={() => {
+            if (session) router.prefetch(primaryPath);
+          }}
+        />
+      ) : null}
     </div>
   );
 }
