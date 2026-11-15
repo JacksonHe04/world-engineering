@@ -3,7 +3,7 @@ import { expect, it } from "vitest";
 
 it("does not expose project diagnostics without the internal token", async () => {
   const response = await SELF.fetch(
-    "https://inon.space/api/sso/internal/projects",
+    "https://sso.inon.space/api/sso/internal/projects",
   );
 
   expect(response.status).toBe(401);
@@ -14,7 +14,7 @@ it("does not expose project diagnostics without the internal token", async () =>
 
 it("rejects an incorrect internal token", async () => {
   const response = await SELF.fetch(
-    "https://inon.space/api/sso/internal/projects",
+    "https://sso.inon.space/api/sso/internal/projects",
     {
       headers: { authorization: "Bearer incorrect-token" },
     },
@@ -28,7 +28,7 @@ it("rejects an incorrect internal token", async () => {
 
 it("returns the seeded project registry to an internal caller", async () => {
   const response = await SELF.fetch(
-    "https://inon.space/api/sso/internal/projects",
+    "https://sso.inon.space/api/sso/internal/projects",
     {
       headers: { authorization: "Bearer test-internal-token" },
     },

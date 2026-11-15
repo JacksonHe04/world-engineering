@@ -10,7 +10,7 @@ it("bootstraps exactly five idempotent first-party OAuth clients", async () => {
   }));
   const request = () =>
     SELF.fetch(
-      "https://inon.space/api/sso/internal/oauth-clients/bootstrap",
+      "https://sso.inon.space/api/sso/internal/oauth-clients/bootstrap",
       {
         method: "POST",
         headers: {

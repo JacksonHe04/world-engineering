@@ -11,7 +11,7 @@ import { authRequest, cookieFrom } from "./auth-test-helpers";
 const DAY_MS = 24 * 60 * 60 * 1_000;
 
 function getSessionRequest(cookie: string) {
-  return new Request("https://inon.space/api/sso/auth/get-session", {
+  return new Request("https://sso.inon.space/api/sso/auth/get-session", {
     headers: { cookie },
   });
 }

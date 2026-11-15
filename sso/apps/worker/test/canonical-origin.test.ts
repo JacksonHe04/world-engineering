@@ -58,8 +58,8 @@ it("trusts the client IP only after authenticating the Vercel proxy", async () =
       method: "POST",
       headers: {
         "content-type": "application/json",
-        origin: "https://inon.space",
-        "x-forwarded-host": "inon.space",
+        origin: "https://sso.inon.space",
+        "x-forwarded-host": "sso.inon.space",
         "x-forwarded-proto": "https",
         "x-inon-client-ip": "203.0.113.42",
         "x-inon-proxy-secret": "test-vercel-proxy-secret",

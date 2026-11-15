@@ -4,7 +4,7 @@ Shared server-side OAuth and project-session client for applications using the
 iNon account system.
 
 The package keeps project credentials on the server, performs Authorization
-Code + PKCE exchanges with `https://inon.space/api/sso/auth`, and stores each
+Code + PKCE exchanges with `https://sso.inon.space/api/sso/auth`, and stores each
 project session in an encrypted, HTTP-only cookie.
 
 ## Usage

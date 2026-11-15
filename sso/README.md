@@ -2,7 +2,7 @@
 
 The central iNon identity platform for iNon, Leaf, PINE, SAYLESS, and Treez.
 
-The public identity origin is `https://inon.space`. Cloudflare Workers and D1
+The public identity origin is `https://sso.inon.space`. Cloudflare Workers and D1
 host the authentication backend, identity data, sessions, authorization, and
 audit records.
 
@@ -29,7 +29,7 @@ request. After the owner has completed email verification once, bind that
 verified D1 user through the internal API:
 
 ```bash
-INON_SSO_WORKER_URL=https://inon.space \
+INON_SSO_WORKER_URL=https://sso.inon.space \
 INON_SSO_INTERNAL_TOKEN=... \
 INON_SSO_SUPER_ADMIN_EMAIL=... \
 pnpm bootstrap:super-admin
@@ -42,7 +42,7 @@ inputs only and must not be committed.
 The same internal token provisions the five first-party OAuth clients:
 
 ```bash
-INON_SSO_WORKER_URL=https://inon.space \
+INON_SSO_WORKER_URL=https://sso.inon.space \
 INON_SSO_INTERNAL_TOKEN=... \
 pnpm bootstrap:oauth-clients
 ```

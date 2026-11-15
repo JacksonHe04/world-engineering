@@ -17,7 +17,7 @@ it("binds the sole role only to an active email-verified account", async () => {
     .run();
 
   const response = await SELF.fetch(
-    "https://inon.space/api/sso/internal/super-admin/bootstrap",
+    "https://sso.inon.space/api/sso/internal/super-admin/bootstrap",
     {
       method: "POST",
       headers: {

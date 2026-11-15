@@ -1,4 +1,4 @@
-export const DEFAULT_ISSUER = "https://inon.space/api/sso/auth";
+export const DEFAULT_ISSUER = "https://sso.inon.space/api/sso/auth";
 export const DEFAULT_BASE_PATH = "/api/auth/inon";
 
 export const INON_SESSION_SLIDING_SECONDS = 30 * 24 * 60 * 60;

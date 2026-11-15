@@ -19,6 +19,9 @@ describe("authentication migration invariants", () => {
       "0003_username_policy.sql",
       "0004_first_party_oauth_clients.sql",
       "0005_auth_security.sql",
+      "0006_sayless_local_callback.sql",
+      "0007_all_projects_local_callbacks.sql",
+      "0008_inon_app_origin.sql",
     ]);
     expect(after.results).toEqual(before.results);
   });

@@ -1,5 +1,5 @@
 import { createInonSso } from "@inon-ai/inon-sso";
-import { inonProjectOrigin } from "./origin";
+import { inonProjectOrigin, inonSsoIssuer } from "./origin";
 
 function requiredEnvironmentVariable(name: string): string {
   const value = process.env[name];
@@ -19,6 +19,7 @@ export function getInonProjectSso() {
     clientSecret: requiredEnvironmentVariable("INON_SSO_CLIENT_SECRET"),
     sessionSecret: requiredEnvironmentVariable("INON_SSO_SESSION_SECRET"),
     appOrigin,
+    issuer: inonSsoIssuer(),
     secureCookies: appOrigin.startsWith("https://"),
   });
 

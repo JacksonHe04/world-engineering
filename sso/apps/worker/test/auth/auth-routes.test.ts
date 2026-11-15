@@ -36,12 +36,12 @@ describe("central authentication routes", () => {
     const password = "central-route-password";
 
     const sendResponse = await app.request(
-      "https://inon.space/api/sso/auth/email-otp/send-verification-otp",
+      "https://sso.inon.space/api/sso/auth/email-otp/send-verification-otp",
       {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          origin: "https://inon.space",
+          origin: "https://sso.inon.space",
         },
         body: JSON.stringify({ email, type: "sign-in" }),
       },
@@ -51,12 +51,12 @@ describe("central authentication routes", () => {
     expect(deliveries).toHaveLength(1);
 
     const signInResponse = await app.request(
-      "https://inon.space/api/sso/auth/sign-in/email-otp",
+      "https://sso.inon.space/api/sso/auth/sign-in/email-otp",
       {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          origin: "https://inon.space",
+          origin: "https://sso.inon.space",
         },
         body: JSON.stringify({ email, otp: deliveries[0]!.otp }),
       },
@@ -70,13 +70,13 @@ describe("central authentication routes", () => {
     const cookie = cookieFrom(signInResponse);
 
     const usernameResponse = await app.request(
-      "https://inon.space/api/sso/account/username",
+      "https://sso.inon.space/api/sso/account/username",
       {
         method: "POST",
         headers: {
           "content-type": "application/json",
           cookie,
-          origin: "https://inon.space",
+          origin: "https://sso.inon.space",
         },
         body: JSON.stringify({ username: "中央-User" }),
       },
@@ -85,13 +85,13 @@ describe("central authentication routes", () => {
     expect(usernameResponse.status).toBe(200);
 
     const passwordResponse = await app.request(
-      "https://inon.space/api/sso/account/password",
+      "https://sso.inon.space/api/sso/account/password",
       {
         method: "POST",
         headers: {
           "content-type": "application/json",
           cookie,
-          origin: "https://inon.space",
+          origin: "https://sso.inon.space",
         },
         body: JSON.stringify({ password }),
       },
@@ -100,7 +100,7 @@ describe("central authentication routes", () => {
     expect(passwordResponse.status).toBe(200);
 
     const profileResponse = await app.request(
-      "https://inon.space/api/sso/account/profile",
+      "https://sso.inon.space/api/sso/account/profile",
       {
         headers: { cookie },
       },
@@ -117,7 +117,7 @@ describe("central authentication routes", () => {
     });
 
     const sessionsResponse = await app.request(
-      "https://inon.space/api/sso/account/sessions",
+      "https://sso.inon.space/api/sso/account/sessions",
       {
         headers: { cookie },
       },
@@ -132,12 +132,12 @@ describe("central authentication routes", () => {
     expect(sessions.sessions[0]).toMatchObject({ current: true });
 
     const usernameSignIn = await app.request(
-      "https://inon.space/api/sso/auth/sign-in/username",
+      "https://sso.inon.space/api/sso/auth/sign-in/username",
       {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          origin: "https://inon.space",
+          origin: "https://sso.inon.space",
         },
         body: JSON.stringify({
           username: "中央-user",

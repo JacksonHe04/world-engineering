@@ -20,7 +20,7 @@ describe("OAuth login handler", () => {
     const location = new URL(response.headers.get("location") ?? "");
 
     expect(response.status).toBe(303);
-    expect(location.origin).toBe("https://inon.space");
+    expect(location.origin).toBe("https://sso.inon.space");
     expect(location.pathname).toBe("/api/sso/auth/oauth2/authorize");
     expect(location.searchParams.get("code_challenge_method")).toBe("S256");
     expect(location.searchParams.get("scope")).toBe(

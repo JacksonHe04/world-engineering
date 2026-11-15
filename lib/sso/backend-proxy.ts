@@ -1,4 +1,4 @@
-import { inonProjectOrigin } from "./origin";
+import { inonSsoOrigin } from "./origin";
 
 const HOP_BY_HOP_HEADERS = [
   "connection",
@@ -39,7 +39,7 @@ export async function proxySsoRequest(
   const backendOrigin = new URL(
     requiredServerEnvironment("INON_SSO_BACKEND_URL"),
   );
-  const publicOrigin = new URL(inonProjectOrigin());
+  const publicOrigin = new URL(inonSsoOrigin());
   if (backendOrigin.protocol !== "https:") {
     throw new Error("INON_SSO_BACKEND_URL must use HTTPS.");
   }

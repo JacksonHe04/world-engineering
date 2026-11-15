@@ -12,12 +12,12 @@ import {
 } from "../../src/auth/constants";
 
 describe("central authentication constants", () => {
-  it("uses inon.space as the only public authentication origin", () => {
+  it("uses sso.inon.space as the only public authentication origin", () => {
     expect(AUTH_BASE_PATH).toBe("/api/sso/auth");
-    expect(AUTH_BASE_URL).toBe("https://inon.space/api/sso/auth");
+    expect(AUTH_BASE_URL).toBe("https://sso.inon.space/api/sso/auth");
     expect(OAUTH_ISSUER).toBe(AUTH_BASE_URL);
     expect(GITHUB_CALLBACK_URL).toBe(
-      "https://inon.space/api/sso/github/callback",
+      "https://sso.inon.space/api/sso/github/callback",
     );
   });
 
@@ -28,7 +28,7 @@ describe("central authentication constants", () => {
 
   it("defines canonical callbacks and exact redirect URI allowlists", () => {
     expect(PROJECT_CALLBACK_URLS).toEqual({
-      inon: "https://inon.space/api/auth/inon/callback",
+      inon: "https://world.inon.space/api/auth/inon/callback",
       leaf: "https://leaf.inon.space/api/auth/inon/callback",
       pine: "https://pine.inon.space/api/auth/inon/callback",
       sayless: "https://sayless.inon.space/api/auth/inon/callback",
@@ -36,7 +36,7 @@ describe("central authentication constants", () => {
     });
     expect(PROJECT_REDIRECT_URIS).toEqual({
       inon: [
-        "https://inon.space/api/auth/inon/callback",
+        "https://world.inon.space/api/auth/inon/callback",
         LOCAL_PROJECT_CALLBACK_URL,
       ],
       leaf: [
