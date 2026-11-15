@@ -61,6 +61,13 @@
 - 数据库：Supabase
 其他技术请见 package.json，务必物尽其用。
 
+### 身份与域名
+
+- 个人站：`inon.space`（另一个 Vercel 项目，不在本仓库）
+- 中央 SSO 身份平台：`sso.inon.space`（本仓库 `sso/` workspace 与 Vercel 代理路由）
+- iNon 产品应用：`world.inon.space`
+- OAuth issuer：`https://sso.inon.space/api/sso/auth`；各产品回调仍使用各自的域名。
+
 ### 原子定义
 
 Non
