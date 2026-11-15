@@ -5,6 +5,7 @@ import {
   getUserDashboardPath,
 } from "@/lib/auth/access";
 import { getInonProjectSso } from "@/lib/sso/project-client";
+import { inonSsoOrigin } from "@/lib/sso/origin";
 
 function requestReturnTo(request: NextRequest): string {
   return `${request.nextUrl.pathname}${request.nextUrl.search}`;
@@ -17,8 +18,27 @@ function projectRedirect(
   return NextResponse.redirect(new URL(path, request.url));
 }
 
+// These pages belong to the central identity app; /sso/start|end|refresh stay
+// on the product origin because they own the project session cookie.
+function isSsoUiPath(pathname: string): boolean {
+  if (pathname === "/sso") return true;
+  return ["/sso/login", "/sso/account", "/sso/consent"].some(
+    (path) => pathname === path || pathname.startsWith(`${path}/`),
+  );
+}
+
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  if (process.env.NODE_ENV === "production" && isSsoUiPath(pathname)) {
+    const ssoOrigin = new URL(inonSsoOrigin());
+    if (request.nextUrl.host !== ssoOrigin.host) {
+      return NextResponse.redirect(
+        new URL(`${pathname}${request.nextUrl.search}`, ssoOrigin),
+      );
+    }
+  }
+
   const isAdminPage = pathname.startsWith("/admin");
   const isOwnerPage =
     pathname === "/i" || pathname.startsWith("/i/");
