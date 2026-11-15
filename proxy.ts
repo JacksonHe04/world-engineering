@@ -30,9 +30,12 @@ function isSsoUiPath(pathname: string): boolean {
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  if (process.env.NODE_ENV === "production" && isSsoUiPath(pathname)) {
+  if (process.env.NODE_ENV === "production") {
     const ssoOrigin = new URL(inonSsoOrigin());
-    if (request.nextUrl.host !== ssoOrigin.host) {
+    if (request.nextUrl.host === ssoOrigin.host && pathname === "/") {
+      return NextResponse.redirect(new URL("/sso/login", request.url));
+    }
+    if (isSsoUiPath(pathname) && request.nextUrl.host !== ssoOrigin.host) {
       return NextResponse.redirect(
         new URL(`${pathname}${request.nextUrl.search}`, ssoOrigin),
       );
