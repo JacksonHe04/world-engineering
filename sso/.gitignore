@@ -1,7 +1,0 @@
-node_modules/
-.dev.vars
-.secrets/
-.wrangler/
-coverage/
-dist/
-*.log
